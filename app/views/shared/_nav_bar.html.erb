@@ -1,14 +1,23 @@
-<nav class="flex justify-between items-center bg-gray-800 py-4 px-8">
-  <div>
-    <a href="#" class="text-white font-bold text-xl">ProjectManagement</a>
-  </div>
-  <div class="flex space-x-4">
-    <a href="#" class="text-gray-400 hover:text-white">Home</a>
-    <a href="#" class="text-gray-400 hover:text-white">Tasks</a>
-    <% if current_user %>
-      <%= link_to current_user.email, users_path, class: "text-gray-400 hover:text-white" %>
-    <% else %>
-      <%= link_to "Sign Up", new_user_registration_path, class: "text-gray-400 hover:text-white"%>
-    <% end %>
+<nav class="bg-primary">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex-shrink-0 flex items-center">
+        <!-- Logo or brand name -->
+        <%= link_to "ProjectManagement", root_path, class: "text-white text-xl font-bold"%>
+      </div>
+      <div class="flex items-center">
+        <!-- Navigation links -->
+        <%= link_to "Projects", projects_path, class: "text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium" %>
+        <a href="#" class="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium">Tasks</a>
+      </div>
+      <div class="flex items-center">
+        <% if current_user %>
+          <%= link_to current_user.email, edit_user_registration_path, class: "text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium" %>
+          <%= button_to "Log Out", destroy_user_session_path, class: "text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium", method: :delete%>
+        <% else %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium"%>
+        <% end %>
+      </div>
+    </div>
   </div>
 </nav>
