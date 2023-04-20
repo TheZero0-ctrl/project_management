@@ -19,6 +19,10 @@ module.exports = {
         'accent1': '#FF6B6B',
         'accent2': '#4D4D4D',
         'accent3': '#B2FF59',
+        'error': '#DC3545',
+        'alert': '#FFC107',
+        'notice': '#17A2B8',
+        'success': '#28A745'
       },
     },
   },
