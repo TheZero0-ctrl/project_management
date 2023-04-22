@@ -1,8 +1,26 @@
+<!--<div id="<%#= dom_id project %>">-->
+  <%# if action_name != "show" %>
+    <%#= project.name %>
+    <%#= link_to "Show this project", project, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%#= link_to 'Edit this project', edit_project_path(project), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+<!--    <hr class="mt-6">-->
+  <%# end %>
+<!--</div>-->
+
 <div id="<%= dom_id project %>">
   <% if action_name != "show" %>
+    <div class="rounded-md shadow-md p-4 bg-white">
+      <a href="<%= project_path(project)%>" class="text-lg font-medium text-primary mb-4 hover:text-accent2"><%= project.name %></a>
+      <div class="flex justify-end">
+        <%= link_to "Edit", edit_project_path(project), class: "btn-secondary px-4 mr-2 text-sm",
+          data: {
+          action: "click->modal#open",
+          turbo_frame: "modal",
+        }%>
+        <%= button_to "Delete", project_path(project), class:"btn-primary py-1 px-4 text-sm", method: :delete, data: { "turbo-confirm": "Are you sure?" }%>
+      </div>
+    </div>
+  <% else %>
     <%= project.name %>
-    <%= link_to "Show this project", project, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this project', edit_project_path(project), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
   <% end %>
 </div>

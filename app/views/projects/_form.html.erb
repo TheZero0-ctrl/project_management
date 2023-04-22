@@ -1,8 +1,7 @@
-<%= form_with(model: project, class: "contents") do |form| %>
+<%= form_with(model: project, class: "contents", id: "project-form", data: {"modal-target": "form"}) do |form| %>
   <% if project.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
       <ul>
         <% project.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,8 +9,12 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div class="form-group">
+    <%= form.label :name %>
+    <div class="mt-1">
+      <%= form.text_field :name %>
+    </div>
   </div>
+
+  <%= form.submit class: "btn-primary py-2 px-2 mt-5" %>
 <% end %>

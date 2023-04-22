@@ -21,39 +21,40 @@ class ProjectsController < ApplicationController
   # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
+    @project.user = current_user
 
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to project_url(@project), notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.save
+      render turbo_stream: turbo_stream.prepend(
+        'projects',
+        partial: 'project',
+        locals: { project: @project }
+      )
+    else
+      render turbo_stream: turbo_stream.replace(
+        'project-form',
+        partial: 'form',
+        locals: { project: @project }
+      ), status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to project_url(@project), notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.update(project_params)
+      render turbo_stream: turbo_stream.replace(@project)
+    else
+      render turbo_stream: turbo_stream.replace(
+        'project-form',
+        partial: 'form',
+        locals: { project: @project }
+      ), status: :unprocessable_entity
     end
   end
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
     @project.destroy
-
-    respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render turbo_stream: turbo_stream.remove(@project)
   end
 
   private
@@ -65,6 +66,6 @@ class ProjectsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def project_params
-    params.fetch(:project, {})
+    params.require(:project).permit(:name)
   end
 end

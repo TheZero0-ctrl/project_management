@@ -3,3 +3,5 @@
 @import "tailwindcss/utilities";
 @import 'common.css';
 @import 'actiontext.css';
+@import "animation.css";
+@import "modal.css";

@@ -1,0 +1,24 @@
+<%= turbo_frame_tag(
+  "modal",
+  data: {
+    "modal-target": "modal",
+    action: "turbo:submit-end->modal#handleResponse"
+  },
+  class: "fixed display-relative min-w-[60%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-50 shadow-lg rounded-lg p-6 hidden z-40"
+) %>
+
+
+
+<!--<div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-lg p-6 hidden" id="modalContent">
+  <h2 class="text-2xl font-semibold text-primary mb-4">Create Project</h2>
+  <form>
+    <label for="projectName" class="block text-gray-600 mb-2">Project Name</label>
+    <input type="text" id="projectName" class="w-full border-gray-300 border-solid border px-4 py-2 rounded mb-4" placeholder="Enter project name">
+    <label for="projectDescription" class="block text-gray-600 mb-2">Project Description</label>
+    <textarea id="projectDescription" class="w-full border-gray-300 border-solid border px-4 py-2 rounded mb-4" rows="4" placeholder="Enter project description"></textarea>
+    <div class="flex justify-end">
+      <button type="submit" class="bg-primary text-white font-bold py-2 px-4 rounded mr-2">Create</button>
+      <button type="button" class="bg-secondary text-white font-bold py-2 px-4 rounded" id="closeModal">Cancel</button>
+    </div>
+  </form>
+</div>-->

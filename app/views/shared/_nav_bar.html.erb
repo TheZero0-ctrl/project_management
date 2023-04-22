@@ -7,15 +7,15 @@
       </div>
       <div class="flex items-center">
         <!-- Navigation links -->
-        <%= link_to "Projects", projects_path, class: "text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium" %>
-        <a href="#" class="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium">Tasks</a>
+        <%= link_to "Projects", projects_path, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium" %>
+        <a href="#" class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium">Tasks</a>
       </div>
       <div class="flex items-center">
         <% if current_user %>
-          <%= link_to current_user.email, edit_user_registration_path, class: "text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium" %>
-          <%= button_to "Log Out", destroy_user_session_path, class: "text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium", method: :delete%>
+          <%= link_to current_user.email, edit_user_registration_path, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium" %>
+          <%= button_to "Log Out", destroy_user_session_path, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium", method: :delete%>
         <% else %>
-          <%= link_to "Sign Up", new_user_registration_path, class: "text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium"%>
+          <%= link_to "Sign Up", new_user_registration_path, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"%>
         <% end %>
       </div>
     </div>

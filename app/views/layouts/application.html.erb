@@ -11,7 +11,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-gray-100" data-controller="modal">
     <header>
       <%= render "/shared/nav_bar"%>
     </header>
@@ -23,5 +23,6 @@
         <%= render "shared/flash", level: key, content: value %>
       <% end %>
     </div>
+    <%= render "shared/modal" %>
   </body>
 </html>
