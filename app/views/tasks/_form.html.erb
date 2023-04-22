@@ -1,0 +1,54 @@
+<%= form_with(model: task, class: "contents", id:"task-form", data: {"modal-target": "form"}) do |form| %>
+  <% if task.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+        <% task.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if action_name == "new" || action_name == "create" %>
+    <%= form.hidden_field :project_id, value: task.project.id%>
+  <% end %>
+  <div class="form-group">
+    <%= form.label :name %>
+    <div class="mt-1">
+      <%= form.text_field :name %>
+    </div>
+  </div>
+  <div class="form-group">
+     <%= form.label :description %>
+     <div class="mt-1">
+        <%= form.rich_text_area :description%>
+     </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :priority%>
+    <%= form.select :priority, options_for_select(Task.priorities.map{|key, _value| [key.humanize, key]}, task.priority), {}, { class: "mt-1" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :latitude %>
+    <div class="mt-1">
+      <%= form.text_field :latitude %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :longitude %>
+    <div class="mt-1">
+      <%= form.text_field :longitude %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :assigned_user_ids, "Assigned to" %>
+    <%= form.select :assigned_user_ids, User.where.not(id: current_user.id).pluck(:email, :id), {}, { multiple: true, data: {controller: "slim"} } %>
+  </div>
+
+  <%= form.submit class: "btn-primary py-2 px-2 mt-5" %>
+<% end %>

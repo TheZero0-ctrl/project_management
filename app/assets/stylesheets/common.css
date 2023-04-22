@@ -17,5 +17,9 @@
 }
 
 .form-group input, .form-group select {
-  @apply appearance-none w-full max-w-prose bg-white text-gray-700 border-gray-200 rounded-sm focus:ring-1 focus:ring-blue-300 focus:border-blue-300;
+  @apply appearance-none w-full bg-white text-gray-700 border-gray-200 rounded-sm focus:ring-1 focus:ring-blue-300 focus:border-blue-300;
+}
+
+.form-group input[type=file]::file-selector-button {
+  @apply btn bg-white border border-blue-500 text-blue-700 hover:bg-blue-700 hover:text-white focus:ring-blue-700 outline-none text-sm shadow-none;
 }

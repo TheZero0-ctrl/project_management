@@ -1,11 +1,11 @@
 <%= turbo_frame_tag "modal" do %>
-  <h3 class="text-2xl font-semibold text-primary mb-4" id="modal-header">Editing project</h3>
+  <h3 class="text-2xl font-semibold text-primary mb-4" id="modal-header">Editing task</h3>
   <button data-action="modal#close" class="absolute top-0 right-0 flex items-center justify-center h-8 w-8 rounded-full focus:outline-none focus:bg-gray-600 hover:bg-gray-600" aria-label="Close modal">
     <%= inline_svg_tag 'close.svg', class: "h-7 w-7 text-gray-800" %>
   </button>
   <div class="mt-4 px-4 text-gray-700">
     <div id="modal-content">
-      <%= render "form", project: @project %>
+      <%= render "form", task: @task %>
     </div>
   </div>
 <% end %>

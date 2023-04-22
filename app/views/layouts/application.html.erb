@@ -6,7 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
+    <!--<link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet" />-->
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -15,7 +15,7 @@
     <header>
       <%= render "/shared/nav_bar"%>
     </header>
-    <main class="container mx-auto mt-28 px-5">
+    <main class="container mx-auto mt-28 px-5 list-style-type: disc">
       <%= yield %>
     </main>
     <div id="flash-container">
