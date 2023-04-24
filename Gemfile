@@ -78,3 +78,5 @@ group :test do
 end
 
 gem "inline_svg", "~> 1.9"
+
+gem "pg_search", "~> 2.3"

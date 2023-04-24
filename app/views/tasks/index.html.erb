@@ -1,13 +1,7 @@
 <div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Tasks</h1>
+  <div class="flex justify-between items-center mb-5">
+    <h1 class="font-bold text-4xl">Tasks assigned to you</h1>
   </div>
-
-  <div id="tasks" class="min-w-full">
-    <%= render @tasks %>
-  </div>
+  <%= render "filter_form" , project: nil%>
+  <%= render "list", tasks: @tasks %>
 </div>

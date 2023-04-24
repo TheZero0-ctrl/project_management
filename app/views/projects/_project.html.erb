@@ -33,10 +33,8 @@
             turbo_frame: "modal",
           } %>
       </div>
-      <div id="tasks" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <% project.tasks.each do |task|%>
-          <%= render '/tasks/task', task: task%>
-        <% end %>
-      </div>
+
+      <%= render "/tasks/filter_form", project: project %>
+      <%= render "/tasks/list", tasks: tasks%>
     <% end %>
   </div>

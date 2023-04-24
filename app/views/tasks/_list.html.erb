@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "tasks-list" do %>
+  <div id="tasks" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <% tasks.each do |task|%>
+      <%= render '/tasks/task', task: task%>
+    <% end %>
+  </div>
+<% end %>

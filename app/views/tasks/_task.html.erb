@@ -1,7 +1,10 @@
 <div id="<%= dom_id task %>">
   <% if controller_name == "projects" || action_name != "show" %>
-    <div class="rounded-md shadow-md p-4 bg-gray-200">
-      <a href="<%= task_path(task)%>" class="text-lg font-medium text-primary mb-4 hover:text-accent2"><%= task.name %></a>
+    <div class="rounded-md shadow-md p-4 bg-gray-200 min-h-[120px]">
+      <%= link_to task.name, task_path(task), class:"text-lg font-medium text-primary mb-4 hover:text-accent2", data: { "turbo-frame": "_top" }%>
+      <% if task.priority %>
+        <div class="w-max px-2 flex justify-center items-center mt-1 mb-2 text-gray-200 text-sm rounded-md <%= priority_color(task.priority)%>"><%=task.priority %></div>
+      <% end %>
       <div class="flex justify-end">
         <%= link_to "Edit", edit_task_path(task), class: "btn-secondary px-4 mr-2 text-sm",
           data: {
@@ -13,7 +16,7 @@
     </div>
   <% else %>
     <div>
-      <p><%= task.description %></p>
+      <%= task.description%>
     </div>
   <% end %>
 </div>

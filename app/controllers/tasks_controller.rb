@@ -1,11 +1,13 @@
 class TasksController < ApplicationController
+  include Filterable
+
   before_action :authenticate_user!
   before_action :set_task, only: %i[show edit update destroy]
   before_action :find_project, only: :new
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = current_user.assigned_tasks
+    @tasks = filter!(Task, 'tasks').joins(:assigned_users).where('users.id = ?', current_user.id)
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -23,7 +25,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      render turbo_stream: turbo_stream.prepend(
+      render turbo_stream: turbo_stream.append(
         'tasks',
         partial: 'task',
         locals: { task: @task }
@@ -69,6 +71,7 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:name, :project_id, :description, :priority, :longitude, :latitude, assigned_user_ids:[])
+    params.require(:task).permit(:name, :project_id, :description, :priority, :longitude, :latitude,
+                                 assigned_user_ids: [])
   end
 end

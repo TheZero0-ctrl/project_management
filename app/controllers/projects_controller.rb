@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
+  include Filterable
+
   before_action :authenticate_user!
-  before_action :set_project, only: %i[show edit update destroy]
+  before_action :set_project, only: %i[show edit update destroy project_tasks]
 
   # GET /projects or /projects.json
   def index
@@ -8,7 +10,9 @@ class ProjectsController < ApplicationController
   end
 
   # GET /projects/1 or /projects/1.json
-  def show; end
+  def show
+    @tasks = filter!(Task, "project_tasks_#{@project.id}").where(project_id: @project.id)
+  end
 
   # GET /projects/new
   def new

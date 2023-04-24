@@ -1,0 +1,23 @@
+<div class="flex mb-6 justify-end">
+  <%= form_with url: project ? project_path(project) : tasks_path,
+    method: :get,
+    class: "flex items-baseline",
+    data: {
+        turbo_frame: "tasks-list",
+        turbo_action: "advance"
+    } do |form| %>
+    <div class="form-group mr-2">
+      <%= form.label :sort, class: "sr-only" %>
+      <%= form.select :sort, options_for_select([['Application Date Ascending', 'created_at-asc'], ['Application Date Descending', 'created_at-desc']], selected_value_for_filter('sort', project, params)) %>
+    </div>
+    <div class="form-group mr-2">
+      <%= form.label :priority, class: "sr-only" %>
+      <%= form.select :priority, options_for_select(Task.priorities.map{|key, _value| [key.humanize, key]}, selected_value_for_filter('priority', project, params)), { include_blank: 'All priority' } %>
+    </div>
+    <div class="form-group mr-2">
+      <%= form.label :query, class: "sr-only" %>
+      <%= form.text_field :query, placeholder: "Search tasks", value: selected_value_for_filter('query', project, params) %>
+    </div>
+    <%= form.submit "Filter", class: "btn-primary px-3 py-2" %>
+  <% end %>
+</div>
