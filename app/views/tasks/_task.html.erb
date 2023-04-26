@@ -1,4 +1,4 @@
-<div id="<%= dom_id task %>">
+<div id="<%= dom_id task %>" class="w-full">
   <% if controller_name == "projects" || action_name != "show" %>
     <div class="rounded-md shadow-md p-4 bg-gray-200 min-h-[120px]">
       <%= link_to task.name, task_path(task), class:"text-lg font-medium text-primary mb-4 hover:text-accent2", data: { "turbo-frame": "_top" }%>
@@ -15,8 +15,27 @@
       </div>
     </div>
   <% else %>
-    <div>
-      <%= task.description%>
+    <div class="bg-white shadow-md rounded-lg p-8">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-3xl font-semibold"><%= task.name %></h2>
+        <% if task.priority %>
+          <span class="<%= priority_color(task.priority) %> text-white font-bold py-2 px-4 rounded"><%= task.priority %></span>
+        <% end %>
+      </div>
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center space-x-4">
+          <span class="bg-accent5 text-white font-bold py-2 px-4 rounded">Project: <%= task.project.name %></span>
+          <span class="bg-accent3 text-white font-bold py-2 px-4 rounded">Assigned by: <%= task.project.user.email %></span>
+        </div>
+      </div>
+      <% if task.description %>
+        <div class="text-lg mb-6"><%= task.description %></div>
+      <% end %>
+      <% if task.file.attached? %>
+        <%= turbo_frame_tag "file", src: task_file_task_path(task), loading: "lazy" do %>
+          Loading...
+        <% end %>
+      <% end %>
     </div>
   <% end %>
 </div>

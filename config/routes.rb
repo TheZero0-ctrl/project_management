@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :tasks, except: :new
+  resources :tasks, except: :new do
+    member do
+      get :task_file, action: :show, controller: 'task_files'
+    end
+  end
   resources :projects do
     member do
       resources :tasks, only: :new
