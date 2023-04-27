@@ -13,6 +13,8 @@
 ActiveRecord::Schema[7.0].define(version: 2023_04_19_113105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
+  enable_extension "postgis_topology"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -72,8 +74,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_113105) do
   create_table "tasks", force: :cascade do |t|
     t.string "name"
     t.string "priority"
-    t.float "latitude"
-    t.float "longitude"
+    t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}, null: false
+    t.float "longitude", null: false
+    t.float "latitude", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

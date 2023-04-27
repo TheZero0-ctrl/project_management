@@ -15,14 +15,16 @@ class Task < ApplicationRecord
 
   validates :name, :priority, presence: true
   validate :validate_file_type
+  validates :latitude, numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:  90 }
+  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
+
+  before_validation :lonlat_geo_point
 
   def validate_file_type
     return unless file.attached? && !file.content_type.in?(%w[image/jpeg image/png application/pdf video/mp4])
 
     errors.add(:file, 'must be an image (JPEG/PNG), PDF, or video (MP4) file')
   end
-  # validates :latitude, numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:  90 }
-  # validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
 
   has_rich_text :description
   has_one_attached :file
@@ -48,5 +50,11 @@ class Task < ApplicationRecord
     search(filters['query'])
       .for_priority(filters['priority'])
       .sorted(filters['sort'])
+  end
+
+  private
+
+  def lonlat_geo_point
+    self.lonlat = RGeo::Geographic.spherical_factory(srid: 4326).point(longitude, latitude)
   end
 end

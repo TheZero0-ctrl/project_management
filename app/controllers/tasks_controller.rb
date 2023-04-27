@@ -10,6 +10,14 @@ class TasksController < ApplicationController
     @tasks = filter!(Task, 'tasks').joins(:assigned_users).where('users.id = ?', current_user.id)
   end
 
+  def tasks_map
+    @tasks = current_user.assigned_tasks
+    respond_to do |format|
+      format.html
+      format.json { render json: @tasks }
+    end
+  end
+
   # GET /tasks/1 or /tasks/1.json
   def show; end
 

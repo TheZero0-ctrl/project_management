@@ -11,9 +11,9 @@ project2 = Project.create(name: 'Project 2', user_id: user2.id)
 project3 = Project.create(name: 'Project 3', user_id: user3.id)
 
 # Create Tasks
-task1 = Task.create(name: 'Task 1', description: 'This is Task 1', priority: 'high', latitude: 40.7128,
+task1 = Task.create(name: 'Task with pdf', description: 'This is Task 1', priority: 'high', latitude: 40.7128,
                     longitude: -74.0060, project_id: project1.id)
-task2 = Task.create(name: 'Task 2', description: 'This is Task 2', priority: 'low', latitude: 37.7749,
+task2 = Task.create(name: 'Task with image', description: 'This is Task 2', priority: 'low', latitude: 37.7749,
                     longitude: -122.4194, project_id: project1.id)
 task3 = Task.create(name: 'Task 3', description: 'This is Task 3', priority: 'medium', latitude: 51.5074,
                     longitude: -0.1278, project_id: project2.id)
@@ -23,9 +23,19 @@ task5 = Task.create(name: 'Task 5', description: 'This is Task 5', priority: 'lo
                     longitude: 2.3522, project_id: project2.id)
 task6 = Task.create(name: 'Task 6', description: 'This is Task 6', priority: 'medium', latitude: 68.8566,
                     longitude: 70.3522, project_id: project3.id)
+task7 = Task.create(name: 'Task with video', description: 'This is Task 7', priority: 'medium', latitude: 70.8566,
+                    longitude: 55.3522, project_id: project1.id)
+
+# Attach file to tasks
+task1.file.attach(io: File.open(Rails.root.join('public', 'files', 'sample-pdf.pdf')), filename: 'sample-pdf.pdf',
+                  content_type: 'application/pdf')
+task2.file.attach(io: File.open(Rails.root.join('public', 'files', 'sample-image.jpg')), filename: 'sample-image.jpg',
+                  content_type: 'image/jpg')
+task7.file.attach(io: File.open(Rails.root.join('public', 'files', 'sample-video.mp4')), filename: 'sample-video.mp4',
+                  content_type: 'video/mp4')
 
 # Add tasks to project
-project1.tasks << [task1, task2]
+project1.tasks << [task1, task2, task7]
 project2.tasks << [task3, task5]
 project3.tasks << [task4, task6]
 

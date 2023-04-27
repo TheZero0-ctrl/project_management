@@ -25,7 +25,9 @@
       <div class="flex items-center justify-between mb-6">
         <div class="flex items-center space-x-4">
           <span class="bg-accent5 text-white font-bold py-2 px-4 rounded">Project: <%= task.project.name %></span>
-          <span class="bg-accent3 text-white font-bold py-2 px-4 rounded">Assigned by: <%= task.project.user.email %></span>
+          <% if task.assigned_users.include?(current_user) %>
+            <span class="bg-accent3 text-white font-bold py-2 px-4 rounded">Assigned by: <%= task.project.user.email %></span>
+          <% end %>
         </div>
       </div>
       <% if task.description %>

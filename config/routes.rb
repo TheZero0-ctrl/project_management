@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
+  get 'tasks_map', to: 'tasks#tasks_map'
+
   root 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
