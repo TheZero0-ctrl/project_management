@@ -5,14 +5,16 @@
       <% if task.priority %>
         <div class="w-max px-2 flex justify-center items-center mt-1 mb-2 text-gray-200 text-sm rounded-md <%= priority_color(task.priority)%>"><%=task.priority %></div>
       <% end %>
-      <div class="flex justify-end">
-        <%= link_to "Edit", edit_task_path(task), class: "btn-secondary px-4 mr-2 text-sm",
+      <% if policy(task).edit? %>
+        <div class="flex justify-end">
+          <%= link_to "Edit", edit_task_path(task), class: "btn-secondary px-4 mr-2 text-sm",
           data: {
           action: "click->modal#open",
           turbo_frame: "modal",
         }%>
-        <%= button_to "Delete", task_path(task), class:"btn-primary py-1 px-4 text-sm", method: :delete, data: { "turbo-confirm": "Are you sure?" }%>
-      </div>
+          <%= button_to "Delete", task_path(task), class:"btn-primary py-1 px-4 text-sm", method: :delete, data: { "turbo-confirm": "Are you sure?" }%>
+        </div>
+      <% end %>
     </div>
   <% else %>
     <div class="bg-white shadow-md rounded-lg p-8">

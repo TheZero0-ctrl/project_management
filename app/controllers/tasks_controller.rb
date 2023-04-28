@@ -19,7 +19,9 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1 or /tasks/1.json
-  def show; end
+  def show
+    authorize @task
+  end
 
   # GET /tasks/new
   def new
@@ -27,11 +29,14 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1/edit
-  def edit; end
+  def edit
+    authorize @task
+  end
 
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
+    authorize @task
     if @task.save
       render turbo_stream: turbo_stream.append(
         'tasks',
@@ -49,6 +54,7 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
+    authorize @task
     if @task.update(task_params)
       render turbo_stream: turbo_stream.replace(@task)
     else
@@ -62,6 +68,7 @@ class TasksController < ApplicationController
 
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
+    authorize @task
     @task.destroy
     render turbo_stream: turbo_stream.remove(@task)
   end

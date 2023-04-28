@@ -1,24 +1,45 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Project Management
 
-Things you may want to cover:
+## Getting started
 
-* Ruby version
+To get started with the app, clone the repo and follow following step
 
-* System dependencies
+First, install postgis
 
-* Configuration
+```
+$ sudo apt-get install postgis postgresql-12-postgis-3
+```
+You can replace  postgresql-12 with your version of postgresql
 
-* Database creation
+Next, install gems
 
-* Database initialization
+```
+$ bundle install
+```
+Next, create database
 
-* How to run the test suite
+```
+$ rails db:create
+```
+Next, enable PostGIS on the newly created database by running the following commands:
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+psql database_name -c "CREATE EXTENSION postgis;"
+psql database_name -c "CREATE EXTENSION postgis_topology;"
+```
 
-* Deployment instructions
-
-* ...
+Next, migrate the database:
+```
+$ rails db:migrate
+```
+Next, seed the database
+```
+$ rails db:seed
+```
+Then, run server
+```
+$ ./bin/dev
+```
+For login information look at the db/seeds.rb file

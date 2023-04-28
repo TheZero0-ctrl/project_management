@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1 or /projects/1.json
   def show
+    authorize @project
     @tasks = filter!(Task, "project_tasks_#{@project.id}").where(project_id: @project.id)
   end
 
@@ -20,7 +21,9 @@ class ProjectsController < ApplicationController
   end
 
   # GET /projects/1/edit
-  def edit; end
+  def edit
+    authorize @project
+  end
 
   # POST /projects or /projects.json
   def create
@@ -44,6 +47,7 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
+    authorize @project
     if @project.update(project_params)
       render turbo_stream: turbo_stream.replace(@project)
     else
@@ -57,6 +61,7 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
+    authorize @project
     @project.destroy
     render turbo_stream: turbo_stream.remove(@project)
   end
